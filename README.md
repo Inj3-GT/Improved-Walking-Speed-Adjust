@@ -1,7 +1,7 @@
 Garry's Mod / Inj3 - Adjust your player's speed dynamically with the mouse wheel
 -------
 <p align="center">
-   <img width="160" src="https://i.imgur.com/htGT4QV.gif" alt="">
+   <img width="170" src="https://i.imgur.com/EXDA9oj.gif" alt="">
 </p>
 
 - Adjust your walking speed dynamically (Similar to Star Citizen).
@@ -13,4 +13,4 @@ Garry's Mod / Inj3 - Adjust your player's speed dynamically with the mouse wheel
 - Compatible with all gamemodes.
 - Configuration (lua/ipr_walkingspeed_sys/configuration/ipr_walkingspeed_config.lua).
 
-[Image 2](https://imgur.com/HFc93nB)
+[Image 2](https://i.imgur.com/FZb8MbN.gif)
