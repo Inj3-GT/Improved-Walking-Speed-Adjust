@@ -1,7 +1,7 @@
 Garry's Mod / Inj3 - Adjust your player's speed dynamically with the mouse wheel
 -------
 <p align="center">
-   <img width="215" src="https://i.imgur.com/CM2bnYW.gif" alt="">
+   <img width="215" src="https://i.imgur.com/htGT4QV.gif" alt="">
 </p>
 
 - Adjust your walking speed dynamically (Similar to Star Citizen).
