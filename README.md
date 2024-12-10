@@ -1,9 +1,5 @@
 Garry's Mod / Inj3 - Adjust your player's speed dynamically with the mouse wheel
 -------
-<p align="center">
-   <img width="165" src="https://i.imgur.com/EXDA9oj.gif" alt="">
-</p>
-
 - Adjust your walking speed dynamically with the mouse wheel (similar to Star Citizen).
 - Works with mouse wheel (up or down).
 - Combine an additional hold key (CAPS Lock by default) + the mouse wheel to adjust your speed (configurable).
