@@ -12,7 +12,7 @@ do
         ["invnext"] = true,
     }
 
-    local function ipr_SWheelKey()
+    local function ipr_ChangeInputs()
         if not ipr_CWalkSpeed.Ckey then
             return
         end
@@ -20,10 +20,10 @@ do
         ipr_CWalkSpeed.KeyPress = ipr_Key
     end
 
-    local function ipr_SWheelWeap(p, b)
+    local function ipr_BindPressed(p, b)
         if (ipr_CWalkSpeed.Bind[b]) then
-            local ipr_CMWSDisable = ipr_WalkSpeed_Config.DisableMWS
-            if not ipr_CMWSDisable then
+            local ipr_DisableMWS = ipr_WalkSpeed_Config.DisableMWS
+            if not ipr_DisableMWS then
                 if not ipr_CWalkSpeed.Ckey then
                     return false
                 end
@@ -32,8 +32,8 @@ do
             return true
         end
     end
-    hook.Add("StartCommand", "ipr_MouseWheel_KeyPress", ipr_SWheelKey)
-    hook.Add("PlayerBindPress", "ipr_MouseWheel_WeapSelector", ipr_SWheelWeap)
+    hook.Add("StartCommand", "ipr_MouseWheel_StartCommand", ipr_ChangeInputs)
+    hook.Add("PlayerBindPress", "ipr_MouseWheel_PlayerBindPress", ipr_BindPressed)
 end
 if not ipr_WalkSpeed_Config.HUD then
     return
@@ -47,7 +47,7 @@ ipr_CWalkSpeed.FontHUD = "DefaultFixedDropShadow"
 ipr_CWalkSpeed.Lerp = ipr_CWalkSpeed.Percent / 2
 ipr_CWalkSpeed.ColorBox = {Bar_Bg = Color(0, 0, 0, 190), Bar = Color(52, 73, 94, 255)}
 
-local function Ipr_SWOnScreen()
+local function ipr_OnScreen()
     ipr_CWalkSpeed.ScrW, ipr_CWalkSpeed.ScrH = ScrW(), ScrH()
 end
 
@@ -93,4 +93,4 @@ local function ipr_Draw_WalkSpeed()
 end
 
 hook.Add("HUDPaint", "ipr_MouseWheel_DrawWalkSpeed", ipr_Draw_WalkSpeed)
-hook.Add("OnScreenSizeChanged", "Ipr_SWOnScreen", Ipr_SWOnScreen)
+hook.Add("OnScreenSizeChanged", "ipr_MouseWheel_OnScreen", ipr_OnScreen)
