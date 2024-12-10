@@ -12,7 +12,7 @@ Garry's Mod / Inj3 - Adjust your player's speed dynamically with the mouse wheel
 - The mouse wheel can be disabled specifically for Garry's Mod weapon selector.
 - Automatically adapts to the maximum running speed set on your player.
 - Set the number of rotations required with your mouse wheel to reach maximum speed.
-- Compatible with all gamemodes.
+- Compatible with all gamemodes (no dependency).
 - Configuration file : lua/ipr_walkingspeed_sys/configuration/ipr_walkingspeed_config.lua
 
 [Image 2](https://i.imgur.com/FZb8MbN.gif)
