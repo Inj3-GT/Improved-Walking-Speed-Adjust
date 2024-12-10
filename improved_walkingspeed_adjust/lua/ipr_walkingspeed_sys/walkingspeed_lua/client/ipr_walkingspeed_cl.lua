@@ -43,9 +43,9 @@ ipr_CWalkSpeed.ScrW = ScrW()
 ipr_CWalkSpeed.ScrH = ScrH()
 ipr_CWalkSpeed.Percent = 100
 ipr_CWalkSpeed.MinRotation = 0
+ipr_CWalkSpeed.FontHUD = "DefaultFixedDropShadow"
 ipr_CWalkSpeed.Lerp = ipr_CWalkSpeed.Percent / 2
 ipr_CWalkSpeed.ColorBox = {Bar_Bg = Color(0, 0, 0, 190), Bar = Color(52, 73, 94, 255)}
-ipr_CWalkSpeed.FontHUD = "DefaultFixedDropShadow"
 
 local function Ipr_SWOnScreen()
     ipr_CWalkSpeed.ScrW, ipr_CWalkSpeed.ScrH = ScrW(), ScrH()
@@ -65,9 +65,8 @@ local function ipr_Draw_WalkSpeed()
     local ipr_ReduceSlowWalkSpeed = ipr_WalkSpeed_Config.ReduceSlowWalkSpeed
     local ipr_WalkSpeed_Slow = ipr_MLocal:GetSlowWalkSpeed() * ipr_ReduceSlowWalkSpeed
     local ipr_MaxRotation = ipr_WalkSpeed_Config.MaxRotation
-    local ipr_MinRotation = ipr_CWalkSpeed.MinRotation
 
-    local ipr_RealtimeSpeed = ipr_MinRotation + ((ipr_WalkSpeed - ipr_WalkSpeed_Slow) / (ipr_WalkSpeed_Max - ipr_WalkSpeed_Slow)) * (ipr_MaxRotation - ipr_MinRotation)
+    local ipr_RealtimeSpeed = ipr_CWalkSpeed.MinRotation + ((ipr_WalkSpeed - ipr_WalkSpeed_Slow) / (ipr_WalkSpeed_Max - ipr_WalkSpeed_Slow)) * (ipr_MaxRotation - ipr_CWalkSpeed.MinRotation)
     ipr_RealtimeSpeed = (ipr_RealtimeSpeed / ipr_MaxRotation) * ipr_CWalkSpeed.Percent
     ipr_RealtimeSpeed = math.Round(ipr_RealtimeSpeed)
 
