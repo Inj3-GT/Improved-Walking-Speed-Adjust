@@ -22,6 +22,7 @@ local function ipr_SetSecondaryKey(k, b, p)
     if not ipr_CombineKeys then
         return
     end
+    
     if (b == ipr_WalkSpeed_Config.AddKey.key) and (k ~= ipr_PMouseWheel[p].MouseKeySecond) then
         ipr_PMouseWheel[p].MouseKeySecond = k
     end
@@ -39,6 +40,7 @@ local function ipr_SetWheelRotate(p, b)
     if not ipr_PMouseWheel[p].MsWheel then
         ipr_PMouseWheel[p].MsWheel = ipr_SWalkSpeed.MidRotation
     end
+    
     local ipr_MouseWheel = (ipr_SWalkSpeed.MouseKey[b].k == "d") and -1 or 1
     ipr_PMouseWheel[p].MsWheel = ipr_PMouseWheel[p].MsWheel + ipr_MouseWheel
     local ipr_MaxRotate = ipr_WalkSpeed_Config.MaxRotation
@@ -69,6 +71,7 @@ local function ipr_CombineKeys(p, b)
     if (ipr_AddCombineKeys) then
         return ipr_GetSecondaryKey(p) and ipr_GetPrimaryKey(b)
     end
+    
     return ipr_GetPrimaryKey(b)
 end
 
@@ -76,6 +79,7 @@ local function ipr_ReleasesKeys(p, b)
     if not IsValid(p) then
         return
     end
+    
     ipr_SetSecondaryKey(false, b, p)
 end
 
