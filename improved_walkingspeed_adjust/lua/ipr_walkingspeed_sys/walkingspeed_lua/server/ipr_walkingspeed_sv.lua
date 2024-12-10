@@ -83,14 +83,14 @@ local function ipr_PressesKeys(p, b)
     if not IsValid(p) then
         return
     end
-    if not ipr_PMouseWheel[p] then
-        ipr_PMouseWheel[p] = {}
-    end
 
     local ipr_CurTime = CurTime()
-    if (ipr_CurTime > (ipr_PMouseWheel[p].WheelCur or 0)) then
+    if (ipr_CurTime > ((ipr_PMouseWheel[p] and ipr_PMouseWheel[p].WheelCur) or 0)) then
         if not p:Alive() then
             return
+        end
+        if not ipr_PMouseWheel[p] then
+            ipr_PMouseWheel[p] = {}
         end
         ipr_SetSecondaryKey(true, b, p)
         if not ipr_CombineKeys(p, b) then
