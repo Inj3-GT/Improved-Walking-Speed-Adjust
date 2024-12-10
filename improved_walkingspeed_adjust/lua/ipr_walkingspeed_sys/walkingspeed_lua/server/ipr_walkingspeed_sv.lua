@@ -17,10 +17,6 @@ local function ipr_GetSecondaryKey(p)
     return ipr_PMouseWheel[p].MouseKeySecond
 end
 
-local function ipr_GetWheelRotate(p)
-    return ipr_PMouseWheel[p].MsWheel or ipr_SWalkSpeed.MidRotation
-end
-
 local function ipr_SetSecondaryKey(k, b, p)
     local ipr_CombineKeys = ipr_WalkSpeed_Config.AddKey[1]
     if not ipr_CombineKeys then
@@ -29,6 +25,10 @@ local function ipr_SetSecondaryKey(k, b, p)
     if (b == ipr_WalkSpeed_Config.AddKey.key) and (k ~= ipr_PMouseWheel[p].MouseKeySecond) then
         ipr_PMouseWheel[p].MouseKeySecond = k
     end
+end
+
+local function ipr_GetWheelRotate(p)
+    return ipr_PMouseWheel[p].MsWheel or ipr_SWalkSpeed.MidRotation
 end
 
 local function ipr_SetClamp(v, n, x)
@@ -45,21 +45,7 @@ local function ipr_SetWheelRotate(p, b)
     ipr_PMouseWheel[p].MsWheel = ipr_SetClamp(ipr_PMouseWheel[p].MsWheel, ipr_SWalkSpeed.MinRotation, ipr_MaxRotate)
 end
 
-local function ipr_PressedKeys(p, b)
-    local ipr_CombineKeys = ipr_WalkSpeed_Config.AddKey[1]
-    if (ipr_CombineKeys) then
-        return ipr_GetSecondaryKey(p) and ipr_GetPrimaryKey(b)
-    end
-    return ipr_GetPrimaryKey(b)
-end
-
-hook.Add("PlayerDisconnected", "ipr_MouseWheel_Logout", function(p)
-    if (ipr_PMouseWheel[p]) then
-        ipr_PMouseWheel[p] = nil
-    end
-end)
-
-hook.Add("PlayerInitialSpawn", "ipr_MouseWheel_InitSpawn", function(p)
+local function ipr_InitSpawn(p)
     local ipr_MSend = ipr_WalkSpeed_Config.SendNotification[1]
     if (ipr_MSend) then
         timer.Simple(7, function()
@@ -70,16 +56,30 @@ hook.Add("PlayerInitialSpawn", "ipr_MouseWheel_InitSpawn", function(p)
             p:ChatPrint(ipr_MPrint)
         end)
     end
-end)
+end
 
-hook.Add("PlayerButtonUp", "ipr_MouseWheel_ButtonUp", function(p, b)
+local function ipr_Logout(p)
+    if (ipr_PMouseWheel[p]) then
+        ipr_PMouseWheel[p] = nil
+    end
+end
+
+local function ipr_CombineKeys(p, b)
+    local ipr_AddCombineKeys = ipr_WalkSpeed_Config.AddKey[1]
+    if (ipr_AddCombineKeys) then
+        return ipr_GetSecondaryKey(p) and ipr_GetPrimaryKey(b)
+    end
+    return ipr_GetPrimaryKey(b)
+end
+
+local function ipr_ReleasesKeys(p, b)
     if not IsValid(p) then
         return
     end
     ipr_SetSecondaryKey(false, b, p)
-end)
+end
 
-hook.Add("PlayerButtonDown", "ipr_MouseWheel_ButtonDown", function(p, b)
+local function ipr_PressesKeys(p, b)
     if not IsValid(p) then
         return
     end
@@ -93,7 +93,7 @@ hook.Add("PlayerButtonDown", "ipr_MouseWheel_ButtonDown", function(p, b)
             return
         end
         ipr_SetSecondaryKey(true, b, p)
-        if not ipr_PressedKeys(p, b) then
+        if not ipr_CombineKeys(p, b) then
             return
         end
         ipr_SetWheelRotate(p, b)
@@ -116,4 +116,9 @@ hook.Add("PlayerButtonDown", "ipr_MouseWheel_ButtonDown", function(p, b)
         ipr_PMouseWheel[p].OldWalk = ipr_SetWalkSpeed
         ipr_PMouseWheel[p].WheelCur = ipr_CurTime + 0.3
     end
-end)
+end
+
+hook.Add("PlayerInitialSpawn", "ipr_MouseWheel_InitSpawn", ipr_InitSpawn)
+hook.Add("PlayerDisconnected", "ipr_MouseWheel_Logout", ipr_Logout)
+hook.Add("PlayerButtonUp", "ipr_MouseWheel_ButtonUp", ipr_ReleasesKeys)
+hook.Add("PlayerButtonDown", "ipr_MouseWheel_ButtonDown", ipr_PressesKeys)
